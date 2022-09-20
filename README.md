@@ -4,6 +4,7 @@ This is a random password generator
 ## Deployed Url
 
 ## Screenshot
+<img width="1077" alt="Screen Shot 2022-09-19 at 11 57 58 PM" src="https://user-images.githubusercontent.com/93955240/191164808-a4c00e7f-5fba-44cd-ad1a-4a6e75a42c75.png">
 
 
 ## User Story
