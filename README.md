@@ -1,4 +1,10 @@
 # Password Generator Starter Code
+This is a random password generator
+
+## Deployed Url
+
+## Screenshot
+
 
 ## User Story
 AS AN employee with access to sensitive data
