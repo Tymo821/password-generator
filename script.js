@@ -1,59 +1,73 @@
 // Assignment code here
-// Created arrays for the user inputs
-var lowerCaseOptions = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var upperCaseOptions = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-var numberOptions = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-var specialCharacterOptions = ["~", "!", "@", "#", "$", "%", "^","&", "*", "(", ")", "-", "="];
+// global variables 
+var passwordLength;
+var password = "";
 
-// created a function for the password generator
-function generatePassword() {
- 
-  //created the prompts for the user input
-  var passwordLength = window.prompt("Enter password length (between 8 - 128 characters"); 
-  var lowerCase = window.prompt("Do you want lower case letters? yes or no");
-  var upperCase = window.prompt("Do you want UPPER CASE letters? yes or no");
-  var numbers = window.prompt("Do you want to use numbers? yes or no");
-  var specialCharacters = window.prompt("Do you want to use special characters? yes or no");
+// password variables
+const uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
+const numbers = "1234567890";
+const specialChar = "!@#$%^&*(){}[]=+-";
+var uppercaseSelected;
+var lowercaseSelected;
+var numbersSelected;
+var specialCharSelected;
 
-  //  created empty arrays for the input/new password
-  var userInput = []
-  var newPassword = '';
+// Prompts function
+function generatePassword () {
+  // creating an empty password
+  password = "";
+  passwordLength = prompt("Enter the desired number of characters for your password (8-128)");
 
-  //checked the user input with if/else statements, added to userInput array if yes
-  if(lowerCase == "yes" ) {
-    userInput = userInput.concat(lowerCaseOptions);
+  // error message if password length is not acceptable
+  if (!(passwordLength >= 8 && passwordLength <= 128)) { 
+      alert ("Your desired password length must be between 8 - 128. Try again");
+      return;
+    }   
+  else {
+      lowercaseSelected = confirm("Would you like to include lower case letters?");
+      uppercaseSelected = confirm("Would you like to include uppercase letters?");
+      numbersSelected = confirm("Would you like to include numbers?");
+      specialCharSelected = confirm("Would you like to include special characters?"); 
   } 
-  if(upperCase == "yes" ) {
-    userInput = userInput.concat(upperCaseOptions);
+  // this if statement checks if the user has selected password input
+  if (!lowercaseSelected && !uppercaseSelected && !numbersSelected && !specialCharSelected) {
+      alert("No selections were made.");
+      return;
+    } 
+  else {
+    // this adds the selected characters to the password
+    if (lowercaseSelected === true) {
+      password += lowercaseLetters;
+    } 
+    if (uppercaseSelected === true) {
+      password += uppercaseLetters;
+    } 
+    if (numbersSelected === true) {
+      password += numbers;
+    } 
+    if (specialCharSelected === true) {
+      password += specialChar;   
+    }  
   }
-  if(numbers == "yes" ) {
-    userInput = userInput.concat(numberOptions);
-  }
-  if(specialCharacters == "yes" ) {
-    userInput = userInput.concat(specialCharacterOptions);
-  }
-
-  //created a for loop to run the randomizer 
-  for (let i = 0; i < passwordLength; i++) {
-    var arrayLength = userInput.length
-    var randomNumber = Math.floor(Math.random() * arrayLength);
-    var newPassword = newPassword + userInput[randomNumber];
-  }
-  
-  //returned the new password
-  return (newPassword);
+  // this will be the returned password in string format
+  return password;
 }
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
-// Write password to the #password input
+// writing th password to the #generate element
 function writePassword() {
-  var password = generatePassword();
+  let password = generatePassword();
+  let showPassword = "";
+// This is the for loop that will loop through each character in the password
+  for (let x = 0; x < passwordLength; x++) {
+    let randomChar = Math.floor(Math.random() * password.length);
+    showPassword += password.substring(randomChar, randomChar +1);
+  }
   var passwordText = document.querySelector("#password");
-
-  passwordText.value = password;
-
+  passwordText.textContent = showPassword;
 }
 
 // Add event listener to generate button
